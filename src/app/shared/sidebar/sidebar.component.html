@@ -1,22 +1,58 @@
 <div class="sidebar-header">
-    <div class="logo clearfix">
-        <a [routerLink]="['/']" class="logo-text float-left">
-            <span class="text align-middle">Reddit client viewer</span>
-        </a>
-    </div>
+  <div class="logo clearfix">
+    <a [routerLink]="['/']" class="logo-text float-left">
+      <span class="text align-middle">Reddit client viewer</span>
+    </a>
+  </div>
 </div>
 
 <div class="sidebar-content">
-    <div class="nav-container">
-        <ul class="navigation">
-             <li *ngFor="let menuItem of menuItems" [ngClass]="[menuItem.class]" [routerLinkActive]="menuItem.submenu.length != 0 ? '' : 'active'"
-                [routerLinkActiveOptions]="{exact: true}">
-                <a [routerLink]="menuItem.class === '' ? [menuItem.path] : null" *ngIf="!menuItem.isExternalLink; else externalLinkBlock">
-                    <i [ngClass]="[menuItem.icon]"></i>
-                    <span class="menu-title">{{menuItem.title }}</span>
-                    <span *ngIf="menuItem.badge != '' " [ngClass]="[menuItem.badgeClass]">{{menuItem.badge}}</span>
-                </a>
-            </li>
-        </ul>
-    </div>
+  <div class="nav-container">
+    <ul class="navigation">
+      <li *ngFor="let p of posts">
+        <div class="card">
+          <!-- <div class="card-header">
+              {{p.data.title}}
+          </div> -->
+          <div class="card-body">
+            <div class="card-block pt-3 text-left">
+              <div class="clearfix">
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <i *ngIf="!p.seen" class="fa fa-circle info" style="line-height:1.6rem"></i>
+                    <h5 class="text-bold-500 primary float-left">
+                      {{ p.data.author }}
+                    </h5>
+                  </span>
+
+                  <span class="info">{{ p.hours_message }}</span>
+                </div>
+              </div>
+              <div class="d-flex mb-2">
+                <img
+                  *ngIf="p.data.thumbnail !== 'default'"
+                  [src]="p.data.thumbnail"
+                  style="height:85px;"
+                  class="col-4 p-0"
+                />
+                <span class="col-8"> {{ p.data.title }} </span>
+
+
+              </div>
+              <div class="d-flex justify-content-between">
+                <div class="actions float-left">
+                  <span><i class="ft-x-circle danger"></i> Dismiss post</span>
+                </div>
+                <span class="info">{{ p.data.num_comments }} comments</span>
+              </div>
+            </div>
+            <!-- <img
+              class="rounded-circle width-50 mr-2"
+              src="assets/img/portrait/small/avatar-s-3.png"
+            /> -->
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>

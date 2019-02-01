@@ -102,7 +102,7 @@
     -webkit-transition: width 0.3s cubic-bezier(0, 0, 0.2, 1);
     transition: width 0.3s cubic-bezier(0, 0, 0.2, 1);
     transform: translate3d(0,0,0);
-    white-space: nowrap;
+    // white-space: nowrap;
     visibility: visible;
 
     &.hide-sidebar{
@@ -267,7 +267,6 @@
         i{
             font-size: 18px;
             float: left;
-            margin-right: 10px;
             line-height: 2rem;
             width: 30px;
             text-align: center;
