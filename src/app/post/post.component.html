@@ -1,20 +1,29 @@
-<section *ngIf="post">
+<section *ngIf="post; else nothingToSee">
   <div class="row">
     <div class="col-sm-12">
       <div class="content-header">{{ post.author }}</div>
       <p class="content-sub-header">
-          {{ post.title }}
+        {{ post.title }}
       </p>
     </div>
   </div>
   <!---->
   <div class="col-12">
-  <div *ngIf="isHtml" [innerHTML]="html" style="width: 80%;"></div>
+    <div *ngIf="isHtml" [innerHTML]="html" style="width: 80%;"></div>
 
-  <video *ngIf="isVideo" width="340" height="480" autoplay>
-    <source [src]="videoUrl" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
-  <img *ngIf="isImage" [src]="imageUrl" style="width: 80%;" />
-</div>
+    <video *ngIf="isVideo" width="340" height="480" autoplay>
+      <source [src]="videoUrl" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <img *ngIf="isImage" [src]="imageUrl" style="width: 80%;" />
+  </div>
 </section>
+<ng-template #nothingToSee>
+    <div class="row">
+        <div class="col-sm-12">
+          <p class="content-sub-header">
+            No posts to see
+          </p>
+        </div>
+      </div>
+</ng-template>

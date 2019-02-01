@@ -31,7 +31,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.redditService.getTopPosts().subscribe(c => {
-      this.posts = c.data.children as ClientChildrenEntity[];
+      this.posts = c;
       this.posts.forEach(t => {
         t.hours_message = this.getHours(t.data.created_utc) + ' hours ago';
       });
@@ -57,5 +57,20 @@ export class SidebarComponent implements OnInit {
     const diff = date2.getTime() - date1.getTime();
 
     return Math.floor(diff / (1000 * 60 * 60));
+  }
+  dismissPost(id: string) {
+    this.redditService.dismissPost(id);
+  }
+
+  dismissAll() {
+    this.redditService.dismissAll();
+  }
+
+  previous() {
+    this.redditService.previous().subscribe();
+  }
+
+  next() {
+    this.redditService.next().subscribe();
   }
 }

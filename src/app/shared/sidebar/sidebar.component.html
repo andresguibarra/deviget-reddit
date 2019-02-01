@@ -10,13 +10,23 @@
   <div class="nav-container">
     <ul class="navigation">
       <li *ngFor="let p of posts">
-        <div class="card" (click)="navbarService.HideSidebar=true" [routerLink]="['/post', p.data.id]" routerLinkActive="router-link-active" style="cursor:pointer;">
+        <div
+          class="card"
+          (click)="navbarService.HideSidebar = true"
+          [routerLink]="['/post', p.data.id]"
+          routerLinkActive="router-link-active"
+          style="cursor:pointer;"
+        >
           <div class="card-body">
             <div class="card-block pt-3 text-left">
               <div class="clearfix">
                 <div class="d-flex justify-content-between">
                   <span>
-                    <i *ngIf="!p.seen" class="fa fa-circle info" style="line-height:1.6rem"></i>
+                    <i
+                      *ngIf="!p.seen"
+                      class="fa fa-circle info"
+                      style="line-height:1.6rem"
+                    ></i>
                     <h5 class="text-bold-500 primary float-left">
                       {{ p.data.author }}
                     </h5>
@@ -33,23 +43,30 @@
                   class="col-4 p-0"
                 />
                 <span class="col-8"> {{ p.data.title }} </span>
-
-
               </div>
               <div class="d-flex justify-content-between">
                 <div class="actions float-left">
-                  <span><i class="ft-x-circle danger"></i> Dismiss post</span>
+                  <span (click)="dismissPost(p.data.id)"
+                    ><i class="ft-x-circle danger"></i> Dismiss post</span
+                  >
                 </div>
                 <span class="info">{{ p.data.num_comments }} comments</span>
               </div>
             </div>
-            <!-- <img
-              class="rounded-circle width-50 mr-2"
-              src="assets/img/portrait/small/avatar-s-3.png"
-            /> -->
           </div>
         </div>
       </li>
     </ul>
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-primary " (click)="previous()">
+        <span class="text-white">Previous</span>
+      </button>
+      <button class="btn btn-primary" (click)="next()">
+        <span class="text-white">Next</span>
+      </button>
+    </div>
+    <button class="btn btn-primary form-control" (click)="dismissAll()">
+      <span class="text-white">Dismiss all</span>
+    </button>
   </div>
 </div>

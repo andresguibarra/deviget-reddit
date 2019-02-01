@@ -32,13 +32,16 @@ export class PostComponent implements OnInit, OnDestroy {
         if (p['id'] !== undefined) {
           this.subscriptions.add(
             this.redditService.getPost(p['id']).subscribe(post => {
-              this.processPost(post.data);
+              if (post !== undefined) {
+                this.processPost(post.data);
+              }
             })
           );
         }
       })
     );
   }
+
   processPost(data: Data1): void {
     this.post = data;
     this.isHtml = false;
