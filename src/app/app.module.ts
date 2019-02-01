@@ -12,9 +12,10 @@ import { FullLayoutComponent } from './layouts/full/full-layout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RoutesService } from './shared/sidebar/sidebar-routes.config';
 import { RedditService } from './shared/services/reddit.service';
+import { NavbarService } from './shared/services/navbar.service';
 
 @NgModule({
-  declarations: [AppComponent, FullLayoutComponent ],
+  declarations: [AppComponent, FullLayoutComponent],
   imports: [
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -24,7 +25,7 @@ import { RedditService } from './shared/services/reddit.service';
     ToastrModule.forRoot(),
     NgbModule.forRoot()
   ],
-  providers: [RoutesService, RedditService ],
+  providers: [RoutesService, RedditService, NavbarService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

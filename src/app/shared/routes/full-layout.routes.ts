@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 
 export const Full_ROUTES: Routes = [
-  // {
-  //   path: 'taskboard',
-  //   loadChildren: './taskboard/taskboard.module#TaskboardModule'
-  // },
-  // {
-  //   path: '',
-  //   redirectTo: 'taskboard',
-  //   pathMatch: 'full'
-  // }
+  {
+    path: 'post',
+    loadChildren: './post/post.module#PostModule'
+  },
+  {
+    path: '',
+    redirectTo: 'post',
+    pathMatch: 'full'
+  }
 ];

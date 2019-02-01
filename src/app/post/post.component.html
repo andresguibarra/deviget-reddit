@@ -1,0 +1,20 @@
+<section *ngIf="post">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="content-header">{{ post.author }}</div>
+      <p class="content-sub-header">
+          {{ post.title }}
+      </p>
+    </div>
+  </div>
+  <!---->
+  <div class="col-12">
+  <div *ngIf="isHtml" [innerHTML]="html" style="width: 80%;"></div>
+
+  <video *ngIf="isVideo" width="340" height="480" autoplay>
+    <source [src]="videoUrl" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  <img *ngIf="isImage" [src]="imageUrl" style="width: 80%;" />
+</div>
+</section>
