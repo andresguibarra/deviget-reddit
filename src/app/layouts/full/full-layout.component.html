@@ -1,0 +1,17 @@
+<div class="wrapper sidebar-sm" [dir]="options.direction">
+    <div class="app-sidebar" [class.hide-sidebar]="isMobile()" data-active-color="white" data-background-color="purple-bliss">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background"></div>
+    </div>
+    <app-navbar></app-navbar>
+    <div class="main-panel">
+        <div class="main-content">
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>

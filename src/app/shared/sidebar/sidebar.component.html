@@ -1,0 +1,22 @@
+<div class="sidebar-header">
+    <div class="logo clearfix">
+        <a [routerLink]="['/']" class="logo-text float-left">
+            <span class="text align-middle">Reddit client viewer</span>
+        </a>
+    </div>
+</div>
+
+<div class="sidebar-content">
+    <div class="nav-container">
+        <ul class="navigation">
+             <li *ngFor="let menuItem of menuItems" [ngClass]="[menuItem.class]" [routerLinkActive]="menuItem.submenu.length != 0 ? '' : 'active'"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a [routerLink]="menuItem.class === '' ? [menuItem.path] : null" *ngIf="!menuItem.isExternalLink; else externalLinkBlock">
+                    <i [ngClass]="[menuItem.icon]"></i>
+                    <span class="menu-title">{{menuItem.title }}</span>
+                    <span *ngIf="menuItem.badge != '' " [ngClass]="[menuItem.badgeClass]">{{menuItem.badge}}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
