@@ -1,6 +1,12 @@
 # Deviget - Reddit client viewer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.5 and updated to 7.1.1
+## About the project
+
+This project is a client viewer that allows the user to navigate through the last posts of Reddit.
+
+The user can navigate through the posts by clicking on each card in the sidebar.
+
+Currently only images and videos are supported.
 
 ## Development server
 
