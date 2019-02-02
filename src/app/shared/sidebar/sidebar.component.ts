@@ -30,15 +30,19 @@ export class SidebarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.redditService.getTopPosts().subscribe(c => {
-      this.posts = c;
-      this.posts.forEach(t => {
-        t.hours_message = this.getHours(t.data.created_utc) + ' hours ago';
-      });
-      if (this.posts.length > 0) {
-        this.router.navigate(['/post', this.posts[0].data.id]);
-      }
+    this.redditService
+      .getTopPosts(false, false)
+      .subscribe(c => this.processPosts(c));
+  }
+
+  processPosts(c) {
+    this.posts = c;
+    this.posts.forEach(t => {
+      t.hours_message = this.getHours(t.data.created_utc) + ' hours ago';
     });
+    if (this.posts.length > 0) {
+      this.router.navigate(['/post', this.posts[0].data.id]);
+    }
   }
 
   getHours(unixDate) {
@@ -67,10 +71,14 @@ export class SidebarComponent implements OnInit {
   }
 
   previous() {
-    this.redditService.previous().subscribe();
+    this.redditService
+      .getTopPosts(false, true)
+      .subscribe(c => this.processPosts(c));
   }
 
   next() {
-    this.redditService.next().subscribe();
+    this.redditService
+      .getTopPosts(true, false)
+      .subscribe(c => this.processPosts(c));
   }
 }

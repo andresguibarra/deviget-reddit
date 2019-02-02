@@ -10,27 +10,52 @@ import { tap, filter, switchMap } from 'rxjs/operators';
 export class RedditService {
   private $posts: ReplaySubject<ClientChildrenEntity[]> = new ReplaySubject(1);
   private posts: ClientChildrenEntity[] = [];
+  private after: string;
+  private before: string;
   constructor(private httpClient: HttpClient) {}
 
-  getTopPosts(): Observable<ClientChildrenEntity[]> {
-    return this.httpClient
-      .get<RedditPosts>('https://www.reddit.com/r/all/top/.json?limit=50')
-      .pipe(
-        switchMap(c => {
-          c.data.children.forEach(t => {
-            if (!this.isDismissed(t.data.id)) {
-              this.posts.push(t as ClientChildrenEntity);
-            }
-          });
-          this.$posts.next(this.posts);
-          return this.$posts;
-        }),
-        tap(c => {
-          c.forEach(t => {
-            t.seen = this.isSeen(t.data.id);
-          });
-        })
+  getTopPosts(
+    after: boolean,
+    before: boolean
+  ): Observable<ClientChildrenEntity[]> {
+    return this.httpClient.get<RedditPosts>(this.getUrl(after, before)).pipe(
+      switchMap(c => {
+        this.posts = [];
+        c.data.children.forEach(t => {
+          if (!this.isDismissed(t.data.id)) {
+            this.posts.push(t as ClientChildrenEntity);
+          }
+        });
+        this.$posts.next(this.posts);
+        this.after = c.data.after;
+        this.before = c.data.before;
+        return this.$posts;
+      }),
+      tap(c => {
+        c.forEach(t => {
+          t.seen = this.isSeen(t.data.id);
+        });
+      })
+    );
+  }
+  getUrl(after: boolean, before: boolean): string {
+    if (after) {
+      return (
+        'https://www.reddit.com/r/all/top/.json?limit=50&count=50' +
+        '&after=' +
+        this.after
       );
+    }
+
+    if (before) {
+      return (
+        'https://www.reddit.com/r/all/top/.json?limit=50&count=50' +
+        '&before=' +
+        this.before
+      );
+    }
+
+    return 'https://www.reddit.com/r/all/top/.json?limit=50&count=50';
   }
 
   getPost(id: string): Observable<ClientChildrenEntity> {
@@ -89,13 +114,5 @@ export class RedditService {
     const seenList = this.getListFromStorage('seenList');
     const seen = seenList.find(s => s === id);
     return seen !== null && seen !== undefined;
-  }
-
-  next(): any {
-    throw new Error('Method not implemented.');
-  }
-
-  previous(): any {
-    throw new Error('Method not implemented.');
   }
 }
